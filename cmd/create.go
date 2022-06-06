@@ -43,7 +43,15 @@ to quickly create a Cobra application.`,
 			os.Exit(1)
 		}
 
-		createArgs := map[string]interface{}{"token": userToken, "type": args[0], "clusterName": args[1], "values": values}
+		values_map := make(map[string]string)
+		err = json.Unmarshal(values, &values_map)
+
+		if err != nil {
+			fmt.Println(err)
+			os.Exit(1)
+		}
+
+		createArgs := map[string]interface{}{"token": userToken, "type": args[0], "clusterName": args[1], "values": values_map}
 		json_data, err := json.Marshal(createArgs)
 
 		if err != nil {
