@@ -65,14 +65,17 @@ to quickly create a Cobra application.`,
 		client := &http.Client{Transport: tr}
 
 		endpoint := kubeCluster + "create-cluster"
-		_, err = client.Post(endpoint, "application/json", bytes.NewBuffer(json_data))
+		resp, err := client.Post(endpoint, "application/json", bytes.NewBuffer(json_data))
 
 		if err != nil {
 			fmt.Println(err)
 			os.Exit(1)
 		}
-
-		fmt.Println("Cluster created")
+		if resp.StatusCode == 403 {
+			fmt.Println("Not enough quota")
+		} else {
+			fmt.Println("Cluster created")
+		}
 	},
 }
 

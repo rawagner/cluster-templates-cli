@@ -32,6 +32,7 @@ type ClusterReponse struct {
 	Type              string `json:"Type"`
 	KubeadminPassword string `json:"KubeadminPassword"`
 	URL               string `json:"URL"`
+	Status            string `json:"Status"`
 }
 
 // listCmd represents the list command
@@ -72,9 +73,9 @@ to quickly create a Cobra application.`,
 
 		writer := tabwriter.NewWriter(os.Stdout, 0, 8, 4, '\t', tabwriter.AlignRight)
 
-		fmt.Fprintf(writer, "NAME\tTYPE\tKUBEADMIN_PASS\tURL\n")
+		fmt.Fprintf(writer, "NAME\tTYPE\tSTATUS\tKUBEADMIN_PASS\tURL\n")
 		for _, cluster := range res {
-			fmt.Fprintf(writer, "%v\t%v\t%v\t%v\n", cluster.Name, cluster.Type, cluster.KubeadminPassword, cluster.URL)
+			fmt.Fprintf(writer, "%v\t%v\t%v\t%v\t%v\n", cluster.Name, cluster.Type, cluster.Status, cluster.KubeadminPassword, cluster.URL)
 		}
 		writer.Flush()
 	},
